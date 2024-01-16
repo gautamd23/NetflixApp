@@ -1,24 +1,84 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import CheckIsValidate from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 export default function Login() {
+    const dispatch = useDispatch()
+  const navigate = useNavigate();
   const [showSignIn, setShowSignIn] = useState(true);
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
-  const userName = useRef(null);
+
   const [errorMsg, setErrorMsg] = useState(null);
 
   function handleToggleSignIn() {
     setShowSignIn(!showSignIn);
   }
   function handleSubmit() {
-    const msg = CheckIsValidate(
-      email.current.value,
-      password.current.value,
-      userName.current.value
-    );
+    const msg = CheckIsValidate(email.current.value, password.current.value);
     setErrorMsg(msg);
+    console.log(email.current.value, password.current.value);
+    if (msg) return;
+
+    if (!showSignIn) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+                const { uid, email, displayName } = auth.currentUser;
+                dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+              navigate("/browse");
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+          console.log(user);
+         
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMsg(error.message);
+          // ..
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMsg(error.message);
+        });
+    }
   }
   return (
     <div>
@@ -36,7 +96,7 @@ export default function Login() {
         </h1>
         {!showSignIn && (
           <input
-          ref={userName}
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="px-3 py-3 rounded-sm bg-slate-800"
