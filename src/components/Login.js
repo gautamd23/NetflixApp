@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 export default function Login() {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showSignIn, setShowSignIn] = useState(true);
   const name = useRef(null);
@@ -43,8 +43,10 @@ export default function Login() {
             displayName: name.current.value,
           })
             .then(() => {
-                const { uid, email, displayName } = auth.currentUser;
-                dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
               navigate("/browse");
             })
             .catch((error) => {
@@ -52,7 +54,7 @@ export default function Login() {
               // ...
             });
           console.log(user);
-         
+
           // ...
         })
         .catch((error) => {
@@ -83,15 +85,18 @@ export default function Login() {
   return (
     <div>
       <Header />
-      <div className="absolute">
-        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/594f8025-139a-4a35-b58d-4ecf8fdc507c/d3c4e455-f0bf-4003-b7cd-511dda6da82a/IN-en-20240108-popsignuptwoweeks-perspective_alpha_website_large.jpg"></img>
+      <div className="absolute ">
+        <img
+          className="object-cover w-screen h-svh"
+          src="https://assets.nflxext.com/ffe/siteui/vlv3/594f8025-139a-4a35-b58d-4ecf8fdc507c/d3c4e455-f0bf-4003-b7cd-511dda6da82a/IN-en-20240108-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+        ></img>
       </div>
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex flex-col gap-3 absolute bg-black mx-auto mt-[150px] w-4/12 right-0 left-0 py-14 px-16 text-white bg-opacity-80 rounded-lg"
+        className="flex flex-col gap-3 absolute bg-black mx-auto mt-[140px] w-[320px] justify-center right-0 left-0 py-10 px-8  text-white bg-opacity-80 rounded-lg"
       >
-        <h1 className="font-bold text-3xl text-white my-3">
+        <h1 className="font-bold text-3xl text-white my-3 mx-2">
           {showSignIn ? "Sign In" : "Sign Up"}
         </h1>
         {!showSignIn && (
@@ -99,30 +104,30 @@ export default function Login() {
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="px-3 py-3 rounded-sm bg-slate-800"
+            className="px-4 py-3 mx-2 rounded-sm bg-slate-800"
           ></input>
         )}
         <input
           ref={email}
           type="text"
           placeholder="Email Address"
-          className="px-3 py-3 rounded-sm bg-slate-800"
+          className=" px-4 py-3 mx-2 rounded-sm bg-slate-800"
         ></input>
 
         <input
           ref={password}
           type="password"
           placeholder="password"
-          className="px-3 py-3 rounded-sm bg-slate-800"
+          className="px-4 py-3 mx-2 rounded-sm bg-slate-800"
         ></input>
         {errorMsg && <p className="text-orange-500 text-sm">{errorMsg}</p>}
         <button
-          className="mt-5 w-full px-3 py-3 bg-red-700 rounded-sm"
+          className="mt-5  px-3 py-3 mx-2 bg-red-700 rounded-sm"
           onClick={handleSubmit}
         >
           {showSignIn ? "Sign In" : "Sign Up"}
         </button>
-        <p className="cursor-pointer text-sm py-3" onClick={handleToggleSignIn}>
+        <p className="cursor-pointer text-xs py-3 mx-2" onClick={handleToggleSignIn}>
           {showSignIn
             ? "New to Netflix? Sign up now."
             : "Already have an acount? Sign In now"}
