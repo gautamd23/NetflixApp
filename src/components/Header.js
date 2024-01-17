@@ -40,12 +40,12 @@ export default function Header() {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="flex items-center justify-between z-10 w-screen absolute px-3 py-3 bg-gradient-to-b from-black">
-      <img className="w-[180px] " src={LOGO_NET}></img>
+    <div className="flex items-center justify-between z-10 w-screen absolute px-3 py-1 bg-gradient-to-b from-black">
+      <img className="w-[160px] " src={LOGO_NET}></img>
       {user && (
         <div className="flex items-center">
           <img className="mx-3" src={LOGO_PROFILE}></img>
-          <button onClick={handleSignOut}>Sign Out</button>
+          <button className="mr-5 text-white" onClick={handleSignOut}>Sign Out</button>
         </div>
       )}
     </div>
