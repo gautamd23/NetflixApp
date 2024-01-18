@@ -6,8 +6,11 @@ import VideoBackground from "./VideoBackground";
 
 export default function MainContainer() {
   const movies = useSelector((store) => store.movie?.nowPlayingMovies);
-  if (!movies) return;
-  const { title, overview ,id} = movies[0];
+  const movieBanner = useSelector((store)=> store.movie?.popularMovies)
+//   if (!movies) return;
+//   const { title, overview ,id} = movies[0];
+if(!movieBanner) return;
+const {title , overview, id} = movieBanner[10];
  
   return (
     <div >

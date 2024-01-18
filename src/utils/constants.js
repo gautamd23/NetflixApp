@@ -15,3 +15,6 @@ export const API_OPTIONS = {
     accept: "application/json",
   },
 };
+
+
+export const POSTER_IMG = "https://image.tmdb.org/t/p/w500/"

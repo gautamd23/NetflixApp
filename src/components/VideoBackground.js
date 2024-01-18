@@ -10,8 +10,12 @@ export default function VideoBackground({ movieId }) {
     <div>
       <iframe className="w-screen aspect-video "
         src={"http://www.youtube.com/embed/" + trailerVideo?.key+"?&autoplay=1&mute=1"}
-       
+        allowfullscreen
+        rel="0"
+        modestbranding="1"
         allowtransparency="true"
+        frameborder="0" 
+        controls="0"
       ></iframe>
     </div>
   );
