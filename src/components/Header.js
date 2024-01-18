@@ -40,7 +40,7 @@ export default function Header() {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="flex items-center justify-between z-10 w-screen absolute px-3 py-1 bg-gradient-to-b from-black">
+    <div className="flex items-center justify-between z-10 w-screen absolute px-8 py-1 bg-gradient-to-b from-black">
       <img className="w-[160px] " src={LOGO_NET}></img>
       {user && (
         <div className="flex items-center">
