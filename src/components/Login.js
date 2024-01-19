@@ -28,7 +28,7 @@ export default function Login() {
   function handleSubmit() {
     const msg = CheckIsValidate(email.current.value, password.current.value);
     setErrorMsg(msg);
-    console.log(email.current.value, password.current.value);
+   
     if (msg) return;
 
     if (!showSignIn) {
@@ -54,7 +54,7 @@ export default function Login() {
               // An error occurred
               // ...
             });
-          console.log(user);
+      
 
           // ...
         })
@@ -73,7 +73,7 @@ export default function Login() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+        
           navigate("/browse");
         })
         .catch((error) => {

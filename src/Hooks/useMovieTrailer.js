@@ -15,12 +15,11 @@ export default function useMovieTrailer(movieId) {
       return movie.type === "Trailer";
     });
     // const num = Math.floor(Math.random()*json.results.length)
-    // console.log(num)
+    
     const trailer = filterData.length ? filterData[0] : json.results[0];
     dispatch(addTrailer(trailer));
-    console.log(filterData);
-    console.log(trailer);
-    // console.log(json);
+    
+ 
   }
   useEffect(function () {
     getMovieTrailer();

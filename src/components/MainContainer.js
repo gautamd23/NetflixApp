@@ -10,7 +10,7 @@ export default function MainContainer() {
 //   if (!movies) return;
 //   const { title, overview ,id} = movies[0];
 if(!movieBanner) return;
-const {title , overview, id} = movieBanner[10];
+const {title , overview, id} = movieBanner[2];
  
   return (
     <div >

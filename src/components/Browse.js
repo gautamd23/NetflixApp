@@ -6,17 +6,26 @@ import SecondContainer from "./SecondContainer";
 import usePopularMovies from "../Hooks/usePopularMovies";
 import useTopRatedMovies from "../Hooks/useTopRatedMovies";
 import useUpcomingMovies from "../Hooks/useUpcomingMovies";
+import Search from "./Search";
+import { useSelector } from "react-redux";
 
 export default function Browse() {
+  const searchToggle = useSelector((store) => store.search.searchToggle);
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
-  useUpcomingMovies()
+  useUpcomingMovies();
   return (
     <div>
       <Header />
-      <MainContainer/>
-      <SecondContainer/>
+      {searchToggle ? (
+        <Search />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondContainer />
+        </>
+      )}
     </div>
   );
 }

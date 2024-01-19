@@ -16,5 +16,10 @@ export const API_OPTIONS = {
   },
 };
 
+export const POSTER_IMG = "https://image.tmdb.org/t/p/w500/";
 
-export const POSTER_IMG = "https://image.tmdb.org/t/p/w500/"
+export const LNG_TYPE = [
+  { lngCode: "en", name: "English" },
+  { lngCode: "hindi", name: "Hindi" },
+  { lngCode: "french", name: "French" },
+];

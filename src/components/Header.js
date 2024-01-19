@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO_NET, LOGO_PROFILE } from "../utils/constants";
+import { LNG_TYPE, LOGO_NET, LOGO_PROFILE } from "../utils/constants";
+import { toggleSearch } from "../utils/searchSlice";
+import { addLng } from "../utils/config";
 
 export default function Header() {
+  const search = useSelector((store) => store.search.searchToggle);
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
@@ -39,13 +42,40 @@ export default function Header() {
 
     return () => unsubscribe();
   }, []);
+  function handelSearchToggle() {
+    dispatch(toggleSearch());
+  }
+  function handleLngChange(e) {
+    dispatch(addLng(e.target.value));
+   
+  }
+
   return (
     <div className="flex items-center justify-between z-10 w-screen absolute px-8 py-1 bg-gradient-to-b from-black">
       <img className="w-[160px] " src={LOGO_NET}></img>
       {user && (
         <div className="flex items-center">
-          <img className="mx-3" src={LOGO_PROFILE}></img>
-          <button className="mr-5 text-white" onClick={handleSignOut}>Sign Out</button>
+          
+
+          <button
+            className="text-white px-2 mr-2 font-bold"
+            onClick={handelSearchToggle}
+          >
+            {!search ? "Search" : "Explore"}
+          </button>
+
+          <button className="mr-2 text-white" onClick={handleSignOut}>
+            Sign Out
+          </button>
+          {search  &&<select
+            className="px-2 py-1 mr-2 text-sm rounded-md"
+            onChange={handleLngChange}
+          >
+            {LNG_TYPE.map((l) => {
+              return <option key={l.name} value={l.lngCode}>{l.name}</option>;
+            })}
+          </select>}
+          <img className="mx-3 mr-4" src={LOGO_PROFILE}></img>
         </div>
       )}
     </div>
