@@ -14,6 +14,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
+  const detailToggle = useSelector((store)=> store.details?.detailToggle)
 
   function handleSignOut() {
     signOut(auth)
@@ -32,6 +33,7 @@ export default function Header() {
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
         // ...
+
         navigate("/browse");
       } else {
         // User is signed out

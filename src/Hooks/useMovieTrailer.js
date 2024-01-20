@@ -15,8 +15,8 @@ export default function useMovieTrailer(movieId) {
       return movie.type === "Trailer";
     });
     // const num = Math.floor(Math.random()*json.results.length)
-    
-    const trailer = filterData.length ? filterData[0] : json.results[0];
+    if(!filterData) return null
+    const trailer = filterData?.length ? filterData[0] : json.results[0];
     dispatch(addTrailer(trailer));
     
  

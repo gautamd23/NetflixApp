@@ -13,6 +13,7 @@ export default function useNowPlayingMovies() {
       const json = await data.json();
     
       dispatch(addMovie(json.results));
+      console.log(json.results)
     }
     useEffect(function () {
       getNowPlayingMovies();

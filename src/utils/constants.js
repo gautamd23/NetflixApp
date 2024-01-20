@@ -23,3 +23,5 @@ export const LNG_TYPE = [
   { lngCode: "hindi", name: "Hindi" },
   { lngCode: "french", name: "French" },
 ];
+
+export const OPENAPI_KEY = "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"

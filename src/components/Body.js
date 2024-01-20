@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Login";
 import Browse from "./Browse";
+import MovieDetails from "./MovieDetails";
 
 
 export default function Body() {
@@ -14,6 +15,10 @@ export default function Body() {
       path: "/browse",
       element: <Browse />,
     },
+    {
+      path:"/movie/:movieId",
+      element:<MovieDetails/>
+    }
   ]);
 
   return (
