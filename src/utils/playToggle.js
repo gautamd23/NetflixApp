@@ -9,9 +9,13 @@ const playToggle = createSlice({
     reducers:{
         playToggleBtn:(state, action)=>{
             state.playToggle = !state.playToggle
+        },
+        resetToggle:(state, action) =>{
+            state.playToggle= false
         }
+
     }
 })
 
-export const {playToggleBtn} = playToggle.actions;
+export const {playToggleBtn,resetToggle} = playToggle.actions;
 export default playToggle.reducer;

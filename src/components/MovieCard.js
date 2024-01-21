@@ -5,7 +5,7 @@ export default function MovieCard({posterPath}) {
    
     if(!posterPath) return null
   return (
-    <div>
+    <div className='py-1'>
         <img className="w-[180px] pr-2 " src={POSTER_IMG+posterPath}></img>
     </div>
   )

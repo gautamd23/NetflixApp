@@ -9,7 +9,7 @@ export default function MyList() {
   const myList = useSelector((store) => store.list?.myList);
   console.log(myList);
   return (
-    <div className="bg-black pb-4 ">
+    <div className="bg-black pb-4 h-screen">
       <div className="flex items-center justify-between z-10 w-screen absolute px-8 py-1 bg-gradient-to-b from-black">
         <img className="w-[160px] " src={LOGO_NET}></img>
         <div className="flex items-center">
@@ -31,9 +31,9 @@ export default function MyList() {
           )}
         </div>
       </div>
-      <div className="pt-24 px-14">
+      <div className="pt-24 px-14 flex flex-col justify-center">
         <h1 className="text-white py-10 text-3xl">My List</h1>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1 ">
           {myList?.map((movie) => {
             return <MovieCard posterPath={movie.poster_path} />;
           })}

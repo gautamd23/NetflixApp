@@ -9,15 +9,20 @@ import {
 import { toggleSearch } from "../utils/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { addMovieDetails,  addSimilar } from "../utils/moviesSlice";
+import { addMovieDetails, addSimilar } from "../utils/moviesSlice";
 import MovieList from "./MovieList";
 import useMovieTrailer from "../Hooks/useMovieTrailer";
 import VideoBackground from "./VideoBackground";
-import { playToggleBtn } from "../utils/playToggle";
+import { playToggleBtn, resetToggle } from "../utils/playToggle";
 import { addMyList } from "../utils/listSlice";
+import { toggleAddListBtn } from "../utils/listToggleSlice";
 
 export default function MovieDetails() {
-    const playToggle = useSelector((store)=>store.play.playToggle)
+  const listAddBtnToggle = useSelector(
+    (store) => store.listToggle?.listAddBtnToggle
+  );
+  const myList = useSelector((store) => store.list?.myList);
+  const playToggle = useSelector((store) => store.play.playToggle);
   const search = useSelector((store) => store.search.searchToggle);
   const similarMovies = useSelector((store) => store.movie?.similarMovies);
   const media = useSelector((store) => store.movie?.searchedMovies);
@@ -25,7 +30,7 @@ export default function MovieDetails() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store?.user);
   const { movieId } = useParams();
-  useMovieTrailer( movieId);
+  useMovieTrailer(movieId);
 
   async function getMovieDetails() {
     const data = await fetch(
@@ -51,26 +56,39 @@ export default function MovieDetails() {
     function () {
       getMovieDetails();
       getSimilarMovies();
-      dispatch(playToggleBtn())
-      
+      dispatch(resetToggle());
+     
+        
     },
     [movieId]
+    
   );
   function handlePlay() {
-    dispatch(playToggleBtn())
+    dispatch(playToggleBtn());
   }
-  
+
   console.log(movieDetail?.poster_path);
 
+
   function handleAddMyList() {
-    dispatch(addMyList(movieDetail))
+    const listedMovie = myList.filter((m) => {
+      return m.id === Number(movieDetail.id);
+    });
+    console.log(listedMovie);
+    if (listedMovie.length === 0) {
+       
+      dispatch(addMyList(movieDetail));
+    }
+    
   }
   return (
     <div className="bg-black text-white w-[100%]">
       <div className="flex items-center justify-between z-10 w-screen absolute px-8 py-1 bg-gradient-to-b from-black">
         <img className="w-[160px] " src={LOGO_NET}></img>
         <div className="flex items-center">
-        <Link to="/my-list"><button>My List</button></Link>
+          <Link to="/my-list">
+            <button>My List</button>
+          </Link>
           <Link to="/">
             <button
               className="text-white px-2 mr-2 font-bold"
@@ -86,38 +104,46 @@ export default function MovieDetails() {
           )}
         </div>
       </div>
-      {playToggle ? <div className="w-[90%] flex gap-3 pt-24 px-12 justify-between ">
-        <div className="flex flex-col mt-6 w-[600px] px-3 ">
-          <h1 className="text-4xl  py-2">{movieDetail?.title}</h1>
-          <p className="py-2 w-[70%] text-sm">{movieDetail?.overview}</p>
-          <p className="text-sm">
-            Duration -{Math.floor(movieDetail?.runtime / 60)}h{" "}
-            {Math.floor(movieDetail?.runtime % 60)}m
-          </p>
-          <p className="text-sm">
-            Genres -{" "}
-            {movieDetail?.genres
-              .map((g) => {
-                return g.name;
-              })
-              .join(",")}
-          </p>
-          <div className="flex gap-3 mt-6">
-            <button className="py-2 px-10 font-bold text-xl bg-white text-black rounded-lg hover:bg-gray-400" onClick={handlePlay}>
-              Play
-            </button>
-            <button className="py-2 px-4 items-center rounded-full text-xl bg-gray-100 text-white  bg-opacity-20 hover:bg-opacity-15" onClick={handleAddMyList}>+</button>
-          
+      {!playToggle ? (
+        <div className="w-[90%] flex gap-3 pt-24 px-12 justify-between ">
+          <div className="flex flex-col mt-6 w-[600px] px-3 ">
+            <h1 className="text-4xl  py-2">{movieDetail?.title}</h1>
+            <p className="py-2 w-[70%] text-sm">{movieDetail?.overview}</p>
+            <p className="text-sm">
+              Duration -{Math.floor(movieDetail?.runtime / 60)}h{" "}
+              {Math.floor(movieDetail?.runtime % 60)}m
+            </p>
+            <p className="text-sm">
+              Genres -{" "}
+              {movieDetail?.genres
+                .map((g) => {
+                  return g.name;
+                })
+                .join(",")}
+            </p>
+            <div className="flex gap-3 mt-6">
+              <button
+                className="py-2 px-10 font-bold text-xl bg-white text-black rounded-lg hover:bg-gray-400"
+                onClick={handlePlay}
+              >
+                Play
+              </button>
+              <button
+                className="py-2 px-4 items-center rounded-full text-xl bg-gray-100 text-white  bg-opacity-20 hover:bg-opacity-15 border-2"
+                onClick={handleAddMyList}
+              >
+                {listAddBtnToggle ? "✔":"+"}
+              </button>
+            </div>
           </div>
+          <img
+            className="w-[30%]"
+            src={POSTER_IMG + movieDetail?.poster_path}
+          ></img>
         </div>
-        <img
-          className="w-[30%]"
-          src={POSTER_IMG + movieDetail?.poster_path}
-        ></img>
-      </div>
-      :
-
-     <VideoBackground/>}
+      ) : (
+        <VideoBackground />
+      )}
       <MovieList title="More like this" movies={similarMovies} />
     </div>
   );
