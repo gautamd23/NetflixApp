@@ -12,7 +12,8 @@ const moviesSlice = createSlice({
     searchedMovies: null,
     searchedQuery: null,
     movieDetails: null,
-    similarMovies:null
+    similarMovies:null,
+    
   },
   reducers: {
     addMovie: (state, action) => {
@@ -46,7 +47,8 @@ const moviesSlice = createSlice({
     },
     addSimilar:(state, action)=>{
         state.similarMovies =action.payload
-    }
+    },
+   
   },
 });
 export const {
@@ -59,6 +61,7 @@ export const {
   clearSearch,
   searchQuery,
   addMovieDetails,
-  addSimilar
+  addSimilar,
+  
 } = moviesSlice.actions;
 export default moviesSlice.reducer;

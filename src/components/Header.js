@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { auth } from "../utils/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
@@ -65,6 +65,9 @@ export default function Header() {
           >
             {!search ? "Search" : "Explore"}
           </button>
+          <Link to="/my-list">
+            <button className="text-white mr-2">My List</button>
+          </Link>
 
           <button className="mr-2 text-white" onClick={handleSignOut}>
             Sign Out

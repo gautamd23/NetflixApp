@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Login";
 import Browse from "./Browse";
 import MovieDetails from "./MovieDetails";
+import MyList from "./MyList";
 
 
 export default function Body() {
@@ -18,6 +19,10 @@ export default function Body() {
     {
       path:"/movie/:movieId",
       element:<MovieDetails/>
+    },
+    {
+      path:"/my-list",
+      element:<MyList/>
     }
   ]);
 
