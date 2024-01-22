@@ -6,7 +6,8 @@ export default function VideoBackground({ movieId }) {
   const trailerVideo = useSelector((store) => store.movie?.trailerVideo);
   useMovieTrailer(movieId);
   return (
-    <div>
+    <div className="flex">
+      {/* <button className="left-[97%] absolute z-10">❌</button> */}
       <iframe
         className="w-screen aspect-video "
         src={
@@ -15,7 +16,6 @@ export default function VideoBackground({ movieId }) {
           "?&autoplay=1&mute=1"
         }
         allowtransparency="true"
-       
       ></iframe>
     </div>
   );

@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import {
   API_OPTIONS,
   BG_IMG,
@@ -7,6 +9,10 @@ import {
   POSTER_IMG,
 } from "../utils/constants";
 import { toggleSearch } from "../utils/searchSlice";
+import play from "../utils/play.png";
+import like from "../utils/like.png";
+import rating from "../utils/rating.png";
+import watchList from "../utils/watchList.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { addMovieDetails, addSimilar } from "../utils/moviesSlice";
@@ -21,6 +27,8 @@ export default function MovieDetails() {
   const listAddBtnToggle = useSelector(
     (store) => store.listToggle?.listAddBtnToggle
   );
+  const trailerVideo = useSelector((store) => store.movie?.trailerVideo);
+
   const myList = useSelector((store) => store.list?.myList);
   const playToggle = useSelector((store) => store.play.playToggle);
   const search = useSelector((store) => store.search.searchToggle);
@@ -57,11 +65,8 @@ export default function MovieDetails() {
       getMovieDetails();
       getSimilarMovies();
       dispatch(resetToggle());
-     
-        
     },
     [movieId]
-    
   );
   function handlePlay() {
     dispatch(playToggleBtn());
@@ -69,17 +74,14 @@ export default function MovieDetails() {
 
   console.log(movieDetail?.poster_path);
 
-
   function handleAddMyList() {
-    const listedMovie = myList.filter((m) => {
+    const listedMovie = myList?.filter((m) => {
       return m.id === Number(movieDetail.id);
     });
     console.log(listedMovie);
     if (listedMovie.length === 0) {
-       
       dispatch(addMyList(movieDetail));
     }
-    
   }
   return (
     <div className="bg-black text-white w-[100%]">
@@ -116,23 +118,61 @@ export default function MovieDetails() {
             <p className="text-sm">
               Genres -{" "}
               {movieDetail?.genres
-                .map((g) => {
+                ?.map((g) => {
                   return g.name;
                 })
                 .join(",")}
             </p>
             <div className="flex gap-3 mt-6">
+              <div className="  ">
+                <button
+                  className="flex items-center py-2 px-8 font-bold text-lg bg-white text-black rounded-lg hover:bg-gray-400"
+                  onClick={handlePlay}
+                >
+                  <img className="w-6 mr-2" src={play}></img>
+                  Play
+                </button>
+              </div>
               <button
-                className="py-2 px-10 font-bold text-xl bg-white text-black rounded-lg hover:bg-gray-400"
-                onClick={handlePlay}
-              >
-                Play
-              </button>
-              <button
-                className="py-2 px-4 items-center rounded-full text-xl bg-gray-100 text-white  bg-opacity-20 hover:bg-opacity-15 border-2"
+                className="py-2 text-sm px-2 items-centerhover:bg-opacity-15 "
                 onClick={handleAddMyList}
               >
-                {listAddBtnToggle ? "✔":"+"}
+                <img
+                  className="w-7 "
+                  src={like}
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Add to My List"
+                ></img>
+                <Tooltip
+                  id="my-tooltip"
+                  style={{
+                    backgroundColor: "#ebe9e4",
+                    color: "#000000",
+                    font: "bold",
+                    marginBottom: "50px",
+                  }}
+                />
+              </button>
+              <button className="px-2">
+                <img
+                  className="w-6 "
+                  src={watchList}
+                  data-tooltip-id="my-watchlist"
+                  data-tooltip-content="Add to Watchlist"
+                ></img>
+                <Tooltip
+                  id="my-watchlist"
+                  style={{
+                    backgroundColor: "#ebe9e4",
+                    color: "#000000",
+                    font: "bold",
+                    marginBottom: "50px",
+                  }}
+                />
+              </button>
+              <button className="flex items-center gap-2 text-lg px-2">
+                <img className="w-7" src={rating}></img>
+                {movieDetail?.vote_average?.toFixed(1)}/10
               </button>
             </div>
           </div>
@@ -142,7 +182,18 @@ export default function MovieDetails() {
           ></img>
         </div>
       ) : (
-        <VideoBackground />
+        <div className="flex justify-center py-7 ">
+          <button className="pt-12 left-[82%] absolute z-10">❌</button>
+          <iframe
+            className="pt-12 w-[70%] aspect-video "
+            src={
+              "http://www.youtube.com/embed/" +
+              trailerVideo?.key +
+              "?&autoplay=1&mute=1&rel=0&amp;controls=0&modestbranding=1&showinfo=0"
+            }
+            allowtransparency="true"
+          ></iframe>
+        </div>
       )}
       <MovieList title="More like this" movies={similarMovies} />
     </div>

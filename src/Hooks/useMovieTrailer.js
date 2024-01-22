@@ -14,9 +14,9 @@ export default function useMovieTrailer(movieId) {
     const filterData = json.results?.filter((movie) => {
       return movie.type === "Trailer";
     });
-    // const num = Math.floor(Math.random()*json.results.length)
+    
     if(!filterData) return null
-    const trailer = filterData?.length ? filterData[0] : json.results[0];
+    const trailer = filterData?.length !==0 ? filterData[0] : json.results[0];
     dispatch(addTrailer(trailer));
     
  
