@@ -13,7 +13,7 @@ if(!movieBanner) return;
 const {title , overview, id} = movieBanner[0];
  
   return (
-    <div className="pt-12 bg-black  md:p-0">
+    <div className=" pt-12 bg-black  md:p-0  ">
       <VideoTitle title={title} overview={overview} />
       <VideoBackground movieId={id}/>
     </div>

@@ -4,9 +4,9 @@ import info from "../utils/info.png";
 
 export default function VideoTitle({ title, overview }) {
   return (
-    <div className="mt-0 w-screen aspect-video pt-28 md:pt-60 px-5 md:px-10 absolute bg-gradient-to-r from-black text-white ">
+    <div className="mt-0 w-screen aspect-video pt-20 md:pt-60 px-5 md:px-10 absolute z-10 bg-gradient-to-r from-black text-white ">
       <h1 className="text-xl md:text-4xl font-bold py-1md:py-3 w-1/2">{title}</h1>
-      <p className=" md:inline-block py-3 w-full md:w-1/3 text-xs md:text-sm ">{overview}</p>
+      <p className=" md:inline-block py-3 w-[90%] md:w-1/3 text-xs md:text-sm ">{overview.substring(0,100)+"..."}</p>
       <div className="flex gap-3 mt-1 md:mt-3">
         <div className="  ">
           <button className="flex items-center py-1 md:py-2 px-3 md:px-8 font-bold text-sm md:text-lg bg-white text-black rounded-lg hover:bg-gray-400">

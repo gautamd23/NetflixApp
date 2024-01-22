@@ -84,38 +84,41 @@ export default function MovieDetails() {
     }
   }
   return (
-    <div className="bg-black text-white w-[100%]">
-      <div className="flex items-center justify-between z-10 w-screen absolute px-8 py-1 bg-gradient-to-b from-black">
-        <img className="w-[160px] " src={LOGO_NET}></img>
-        <div className="flex items-center">
+    <div className="bg-black  text-white w-screen h-screen md:h-auto">
+      <div className="flex items-center justify-between z-10 w-screen fixed md:absolute px-4 md:px-8 py-1 bg-gradient-to-b from-black ">
+        <img className="w-[80px] md:w-[160px] " src={LOGO_NET}></img>
+        <div className="flex items-center justify-between gap-1 ">
           <Link to="/my-list">
-            <button>My List</button>
+            <button className="font-bold text-xs md:text-lg">My List</button>
           </Link>
           <Link to="/">
             <button
-              className="text-white px-2 mr-2 font-bold"
+              className="text-white px-2 mr-1 md:mr-2 font-bold text-xs md:text-lg"
               // onClick={handelSearchToggle}
             >
               Explore
             </button>
           </Link>
-          {user && (
+          <img className="w-5 md:w-8 mx-0 md:mx-3 mr-0 md:mr-4 sm:" src={LOGO_PROFILE}></img>
+          {/* {user && (
             <div className="flex items-center">
               <img className="mx-3 mr-4" src={LOGO_PROFILE}></img>
             </div>
-          )}
+          )} */}
         </div>
       </div>
       {!playToggle ? (
-        <div className="w-[90%] flex gap-3 pt-24 px-12 justify-between ">
-          <div className="flex flex-col mt-6 w-[600px] px-3 ">
-            <h1 className="text-4xl  py-2">{movieDetail?.title}</h1>
-            <p className="py-2 w-[70%] text-sm">{movieDetail?.overview}</p>
-            <p className="text-sm">
+        <div className=" w-[90%] flex md:flex  md:flex-row gap-3 pt-7 md:pt-24 px-4 md:px-12 justify-center  mb-7 md:mb-0 ml-4 md:ml-0">
+          <div className="flex flex-col mt-6 w-[300px] md:w-[600px] px-0 md:px-3 ">
+            <h1 className="text-2xl md:text-4xl  py-2">{movieDetail?.title}</h1>
+            <p className="py-2 w-full md:w-[70%] text-xs md:text-sm">
+              {movieDetail?.overview.substring(0,100)+"..."}
+            </p>
+            <p className="text-xs md:text-sm">
               Duration -{Math.floor(movieDetail?.runtime / 60)}h{" "}
               {Math.floor(movieDetail?.runtime % 60)}m
             </p>
-            <p className="text-sm">
+            <p className="text-xs md:text-sm">
               Genres -{" "}
               {movieDetail?.genres
                 ?.map((g) => {
@@ -123,22 +126,21 @@ export default function MovieDetails() {
                 })
                 .join(",")}
             </p>
-            <div className="flex gap-3 mt-6">
-              <div className="  ">
-                <button
-                  className="flex items-center py-2 px-8 font-bold text-lg bg-white text-black rounded-lg hover:bg-gray-400"
-                  onClick={handlePlay}
-                >
-                  <img className="w-6 mr-2" src={play}></img>
-                  Play
-                </button>
-              </div>
+            <div className="flex gap-2 md:gap-3  mt-11 md:mt-6 ">
+              <button
+                className=" flex  items-center py-0 md:py-2 px-2 md:px-8 font-bold text-xs md:text-lg bg-white text-black rounded-sm md:rounded-lg hover:bg-gray-400"
+                onClick={handlePlay}
+              >
+                <img className="hidden md:inline-block w-3 md:w-6 mr-1 md:mr-2" src={play}></img>
+                Play
+              </button>
+
               <button
                 className="py-2 text-sm px-2 items-centerhover:bg-opacity-15 "
                 onClick={handleAddMyList}
               >
                 <img
-                  className="w-7 "
+                  className="w-7 md:w-7 "
                   src={like}
                   data-tooltip-id="my-tooltip"
                   data-tooltip-content="Add to My List"
@@ -170,19 +172,22 @@ export default function MovieDetails() {
                   }}
                 />
               </button>
-              <button className="flex items-center gap-2 text-lg px-2">
-                <img className="w-7" src={rating}></img>
+              <button className="flex items-center gap-1 md:gap-2 text-xs md:text-lg px-1 md:px-2">
+                <img className="w-3 md:w-7" src={rating}></img>
                 {movieDetail?.vote_average?.toFixed(1)}/10
               </button>
             </div>
           </div>
-          <img
-            className="w-[30%]"
-            src={POSTER_IMG + movieDetail?.poster_path}
-          ></img>
+          <div className="w-[70%] flex flex-row justify-end items-center md:items-start">
+            <img
+              className="w-[100%] md:w-[40%] h-48 md:h-auto"
+              src={POSTER_IMG + movieDetail?.poster_path}
+            ></img>
+          </div>
+          
         </div>
       ) : (
-        <div className="flex justify-center py-7 ">
+        <div className="flex justify-center py-7 pt-9 md:pt-0 pb-12 md:pb-0">
           <button className="pt-12 left-[82%] absolute z-10">❌</button>
           <iframe
             className="pt-12 w-[70%] aspect-video "

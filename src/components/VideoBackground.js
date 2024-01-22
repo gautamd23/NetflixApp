@@ -13,7 +13,7 @@ export default function VideoBackground({ movieId }) {
         src={
           "http://www.youtube.com/embed/" +
           trailerVideo?.key +
-          "?&autoplay=1&mute=1"
+          "?&autoplay=1&mute=1&rel=0&amp;controls=0&modestbranding=1&showinfo=0"
         }
         allowtransparency="true"
       ></iframe>
