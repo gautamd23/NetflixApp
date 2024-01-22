@@ -22,6 +22,9 @@ import VideoBackground from "./VideoBackground";
 import { playToggleBtn, resetToggle } from "../utils/playToggle";
 import { addMyList } from "../utils/listSlice";
 import { toggleAddListBtn } from "../utils/listToggleSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "reactjs-popup/dist/index.css";
 
 export default function MovieDetails() {
   const listAddBtnToggle = useSelector(
@@ -80,9 +83,11 @@ export default function MovieDetails() {
     });
     console.log(listedMovie);
     if (listedMovie.length === 0) {
+      toast(`${movieDetail.original_title} added to My List`);
       dispatch(addMyList(movieDetail));
     }
   }
+
   return (
     <div className="bg-black  text-white w-screen h-screen md:h-auto">
       <div className="flex items-center justify-between z-10 w-screen fixed md:absolute px-4 md:px-8 py-1 bg-gradient-to-b from-black ">
@@ -99,7 +104,10 @@ export default function MovieDetails() {
               Explore
             </button>
           </Link>
-          <img className="w-5 md:w-8 mx-0 md:mx-3 mr-0 md:mr-4 sm:" src={LOGO_PROFILE}></img>
+          <img
+            className="w-5 md:w-8 mx-0 md:mx-3 mr-0 md:mr-4 sm:"
+            src={LOGO_PROFILE}
+          ></img>
           {/* {user && (
             <div className="flex items-center">
               <img className="mx-3 mr-4" src={LOGO_PROFILE}></img>
@@ -112,7 +120,7 @@ export default function MovieDetails() {
           <div className="flex flex-col mt-6 w-[300px] md:w-[600px] px-0 md:px-3 ">
             <h1 className="text-2xl md:text-4xl  py-2">{movieDetail?.title}</h1>
             <p className="py-2 w-full md:w-[70%] text-xs md:text-sm">
-              {movieDetail?.overview.substring(0,100)+"..."}
+              {movieDetail?.overview.substring(0, 100) + "..."}
             </p>
             <p className="text-xs md:text-sm">
               Duration -{Math.floor(movieDetail?.runtime / 60)}h{" "}
@@ -131,9 +139,20 @@ export default function MovieDetails() {
                 className=" flex  items-center py-0 md:py-2 px-2 md:px-8 font-bold text-xs md:text-lg bg-white text-black rounded-sm md:rounded-lg hover:bg-gray-400"
                 onClick={handlePlay}
               >
-                <img className="hidden md:inline-block w-3 md:w-6 mr-1 md:mr-2" src={play}></img>
+                <img
+                  className="hidden md:inline-block w-3 md:w-6 mr-1 md:mr-2"
+                  src={play}
+                ></img>
                 Play
               </button>
+              <ToastContainer 
+              toastStyle={{ backgroundColor: "#888a89",color:"white",  }}
+                position="top-center"
+                autoClose={1000}
+                draggable
+                hideProgressBar={true}
+                toastClassName="bg-gray-800 text-white"
+              />
 
               <button
                 className="py-2 text-sm px-2 items-centerhover:bg-opacity-15 "
@@ -155,6 +174,7 @@ export default function MovieDetails() {
                   }}
                 />
               </button>
+
               <button className="px-2">
                 <img
                   className="w-6 "
@@ -176,6 +196,10 @@ export default function MovieDetails() {
                 <img className="w-3 md:w-7" src={rating}></img>
                 {movieDetail?.vote_average?.toFixed(1)}/10
               </button>
+              {/* <div>
+                <button onClick={}>Notify!</button>
+                <ToastContainer />
+              </div> */}
             </div>
           </div>
           <div className="w-[70%] flex flex-row justify-end items-center md:items-start">
@@ -184,7 +208,6 @@ export default function MovieDetails() {
               src={POSTER_IMG + movieDetail?.poster_path}
             ></img>
           </div>
-          
         </div>
       ) : (
         <div className="flex justify-center py-7 pt-9 md:pt-0 pb-12 md:pb-0">

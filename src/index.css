@@ -1,4 +1,10 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-gray-800 {
+  background-color: #2d2d2d; /* Adjust the color as needed */
+}
+.text-white {
+  color: #ffffff; /* Adjust the color as needed */
+}
