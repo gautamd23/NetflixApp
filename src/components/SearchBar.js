@@ -28,14 +28,14 @@ export default function SearchBar() {
 //   if(!query.current?.value) dispatch(clearSearch())
 
   return (
-    <div className="pt-[12%] flex justify-center items-center">
+    <div className="pt-[45%]  md:pt-[12%] flex justify-center items-center">
       <form
         onSubmit={(e) => e.preventDefault()}
         className="flex justify-center w-full py-3 px-3 "
       >
         <input
           ref={query}
-          className="py-2 px-3 w-1/3 rounded-sm mr-4 shadow-2xl outline-none"
+          className="py-2 px-3 w-full md:w-1/3 rounded-sm mr-4 shadow-2xl outline-none"
           type="text"
           placeholder={languageOptions[lang].placeholder}
         ></input>

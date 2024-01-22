@@ -13,10 +13,10 @@ export default function MovieList({ title, movies }) {
         dispatch(showDetails())
     }
   return (
-    <div className="pl-11 pr-5">
+    <div className="pl-5 md:pl-11 pr-5">
       <h1 className="font-bold text-xl py-3 text-white">{title}</h1>
       <div className="flex overflow-x-scroll">
-        <div className="flex flex-shrink-0 ">
+        <div className=" flex flex-shrink-0 ">
           {movies?.map((movie) => {
             return <Link to={"/movie/"+movie.id} key={movie.id} onClick={handleDetails}><MovieCard  posterPath={movie.poster_path} /></Link>;
           })}

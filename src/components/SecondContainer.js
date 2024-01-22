@@ -9,7 +9,7 @@ export default function SecondContainer() {
   const upcoming = useSelector((store)=>store.movie?.upcomingMovies)
   return (
     <div className="text-white bg-black">
-      <div className="-mt-48 relative z-20">
+      <div className="-mt-0 md:-mt-48 pt-12 md:pt-0 relative z-20">
         <MovieList title={"Now Playing"} movies={movies} />
         <MovieList title={"Popular"} movies={popularMovies} />
         <MovieList title={"Top Rated"} movies={topRated} />

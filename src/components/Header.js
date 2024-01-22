@@ -53,34 +53,35 @@ export default function Header() {
   }
 
   return (
-    <div className="flex items-center justify-between z-10 w-screen absolute px-8 py-1 bg-gradient-to-b from-black">
-      <img className="w-[160px] " src={LOGO_NET}></img>
+    <div className="flex  items-center  z-10 w-screen absolute  py-1 bg-gradient-to-b from-black sm: md:flex-row px-8 justify-between">
+      <img className="w-[80px] md:w-[160px] " src={LOGO_NET}></img>
       {user && (
-        <div className="flex items-center">
+        <div className="flex md:flex items-center ">
           
 
           <button
-            className="text-white px-2 mr-2 font-bold"
+            className="text-xs md:text-lg  text-white px-0 md:px-2 mr-2 font-bold"
             onClick={handelSearchToggle}
           >
             {!search ? "Search" : "Explore"}
           </button>
+          <div>
           <Link to="/my-list">
-            <button className="text-white mr-2">My List</button>
+            <button className="text-white text-xs md:text-lg  mr-2 md:mr-2">My List</button>
           </Link>
-
-          <button className="mr-2 text-white" onClick={handleSignOut}>
+          </div>
+          <button className="text-xs md:text-lg p-0 mr-2 text-white md:mr-2 " onClick={handleSignOut}>
             Sign Out
           </button>
           {search  &&<select
-            className="px-2 py-1 mr-2 text-sm rounded-md"
+            className="w-2 md:w-16 px-2 py-0 md:py-1 mr-1 md:mr-2 text-xs md:text-lg rounded-md "
             onChange={handleLngChange}
           >
             {LNG_TYPE.map((l) => {
               return <option key={l.name} value={l.lngCode}>{l.name}</option>;
             })}
           </select>}
-          <img className="mx-3 mr-4" src={LOGO_PROFILE}></img>
+          <img className="   md:mx-3 mr-4 sm:" src={LOGO_PROFILE}></img>
         </div>
       )}
     </div>
