@@ -26,16 +26,16 @@ export default function Login() {
     setShowSignIn(!showSignIn);
   }
   function handleSubmit() {
-    const msg = CheckIsValidate(email.current.value, password.current.value);
+    const msg = CheckIsValidate(email.current?.value, password.current?.value);
     setErrorMsg(msg);
-   
+
     if (msg) return;
 
     if (!showSignIn) {
       createUserWithEmailAndPassword(
         auth,
-        email.current.value,
-        password.current.value
+        email.current?.value,
+        password.current?.value
       )
         .then((userCredential) => {
           // Signed up
@@ -54,7 +54,6 @@ export default function Login() {
               // An error occurred
               // ...
             });
-      
 
           // ...
         })
@@ -73,7 +72,7 @@ export default function Login() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-        
+
           navigate("/browse");
         })
         .catch((error) => {
