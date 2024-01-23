@@ -215,7 +215,7 @@ export default function MovieDetails() {
           <iframe
             className="pt-12 w-[70%] aspect-video "
             src={
-              "http://www.youtube.com/embed/" +
+              "https://www.youtube.com/embed/" +
               trailerVideo?.key +
               "?&autoplay=1&mute=1&rel=0&amp;controls=0&modestbranding=1&showinfo=0"
             }
