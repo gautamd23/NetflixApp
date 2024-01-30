@@ -1,5 +1,7 @@
 
-https://65b3484cfa4b59833b01cb32--keen-cactus-18f72b.netlify.app/
+https://netflix-41657.web.app/
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
